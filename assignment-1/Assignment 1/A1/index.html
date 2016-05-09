@@ -1,0 +1,163 @@
+<!doctype html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Hub</title>
+
+        <!-- Load in fonts -->
+        <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400' rel='stylesheet' type='text/css'>
+
+        <!-- Links to required resources -->
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <script src="js/jquery-2.2.2.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?callback=initDeviceMap" async defer></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="js/main.js"></script>
+
+        <!-- Perform the onload tasks -->
+        <script>
+            $(document).ready(function() {
+                $('#content').hide();
+                $('#deviceList').hide();
+            });
+        </script>
+    </head>
+
+    <body onresize="javascript:resizeEventHandler()" onclick="closeSidebar()">
+        <div id = "sidebar" class="sidebar" onclick="closeSidebar()">
+            <nav id="sidebar-no-login">
+                <a href="javascript:void(0);">Please log in</a>
+            </nav>
+            <nav id="deviceList">
+                <a href="javascript:loadHome();">Home</a>
+                <a href="javascript:loadDeviceView(1);">Device 1</a>
+                <a href="javascript:loadDeviceView(2);">Device 2</a>
+                <a href="javascript:loadDeviceView(3);">Device 3</a>
+                <a href="javascript:logout();">Logout</a>
+            </nav>
+        </div>
+
+        <main>
+            <nav class="navbar">
+                <ul>
+                    <li style="width: 5vw"><a href="javascript:toggleSidebar();" id="menu-button" style="font-family: Arial,sans-serif ">☰</a></li>
+                    <li style="width: 90vw; text-align: center; font-size: 40px; color: #f1f1f1; font-family: 'lobster', cursive">Hub</li>
+                    <li style="width: 5vw;" id="navbar-spacer"></li>
+                </ul>
+            </nav>
+
+            <!-- Welcome screen and login form -->
+            <div class="welcome" id="welcome">
+                <br><br><br><br><br>
+                <h1>Welcome to <a style="font-family: lobster,cursive; font-size: larger">Hub</a>!</h1>
+                <br>
+                <div id="login-form" class="login-form">
+                    <form>
+                        Username: <input type="text" name="username" id="username" style="margin-left: 5em"><br><br>
+                        &nbsp;Password: <input type="password" name="password" id="password" style="margin-left: 5em"><br><br>
+                        <input type="button" class="button-std" onclick="login(document.getElementById('username').value, document.getElementById('password').value)" value="Login">
+                    </form>
+                </div>
+                <br><br><br>
+                <h2>Hub is the centre of your IoT.</h2>
+                <p>Designed to be the heart of all your IoT devices, Hub provides<br>
+                    developers with a platform that facilitates the storing, visualisation<br>
+                    and forwarding of data received from your web enabled systems.</p>
+                <a href="javascript:void(0);" class="button-std">Get Started</a>
+            </div>
+
+            <!-- Main content -->
+            <div class="content" id="content">
+                <!-- Home content -> Holistic view of devices -->
+                <div class="home" id="home">
+                    <div class="outline">
+                        <div class="total-stats" id="total-stats">
+                            <h1><a id="welcome-message"></a></h1>
+                            <!-- Graph of activity over time -->
+                            <p id="num-active-devices"></p>
+                            <p id="total-data-received"></p>
+                            <div class="total-activity-chart-container">
+                                <div id="total-activity-chart" class="total-activity-chart"></div>
+                            </div>
+                            <br>
+                            <p style="text-align: center">
+                                <input type="button" value="Add Device" class="button-std">
+                                <input type="button" style="margin-left: 5em" value="Remove Device" class="button-std">
+                            </p>
+                        </div>
+                        <div class="total-map-container" id="total-map-container">
+                            <figure class="total-map" id="total-map"></figure>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="device-view" id="device-view">
+                    <div class="outline">
+                        <div id="device-tabs-container">
+                            <ul class="device-tabs">
+                                <li><a href="javascript:openDeviceTab(event, 0)" class="tab-icons">Overview</a></li>
+                                <li><a href="javascript:openDeviceTab(event, 1)" class="tab-icons">Table</a></li>
+                                <li><a href="javascript:openDeviceTab(event, 2)" class="tab-icons">Graph</a></li>
+                                <li><a href="javascript:openDeviceTab(event, 3)" class="tab-icons">Live</a></li>
+                                <li><a href="javascript:openDeviceTab(event, 4)" class="tab-icons">Connections</a></li>
+                            </ul>
+                            <div id="device-tabs-0" class="device-chart-tabs">
+                                <div id="device-overview">
+                                    <div class="device-stats" id="device-stats">
+                                        <h1><a id="device-name"></a></h1>
+                                        <p id="device-description"></p>
+                                        <p id="device-received-data"></p>
+                                        <div class="device-activity-chart-container">
+                                            <div id="device-activity-chart" class="total-activity-chart"></div>
+                                        </div>
+                                        <br>
+                                        <p style="text-align: center">
+                                            <input type="button" value="Send Message" class="button-std">
+                                            <input type="button" style="margin-left: 5em" value="Download Data" class="button-std">
+                                        </p>
+                                    </div>
+                                    <div id="device-map-container" class="device-map-container">
+                                        <figure id="device-map" class="device-map"></figure>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="device-tabs-1" class="device-chart-tabs">
+                                <div class="device-graph-container">
+                                    <figure id="device-table-chart">
+                                        <p>This tab will display a table view of the data received by the device</p>
+                                    </figure>
+                                </div>
+                            </div>
+                            <div id="device-tabs-2" class="device-chart-tabs">
+                                <div class="device-graph-container">
+                                    <figure id="device-graph-chart" class="device-graph-chart">
+                                        <p>This tab will display a series of interactive graphs representing the data received by the device</p>
+                                    </figure>
+                                </div>
+                            </div>
+                            <div id="device-tabs-3" class="device-chart-tabs">
+                                <div class="device-graph-container">
+                                    <div id="live-data-feed" class="live-data-feed">
+                                        <p>This tab will house a live data feed view that displays messages received by the device in real time</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="device-tabs-4" class="device-chart-tabs">
+                                <div class="device-graph-container">
+                                    <div id="connected-devices" class="connected-devices">
+                                        <p>This tab will facilitate the formation of links between devices. Messages sent by a device will be sent to all of its connected devices.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <p style="text-align: center; font-size: small">Developed By Joshua Wise s4320715</p>
+        </footer>
+    </body>
+</html>
