@@ -1,0 +1,108 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20/04/2016, 11:43:08 PM
+    Author     : Liam Cosgrove
+*/
+
+/*Remove the navbar's default margin-bottom and rounded borders */ 
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {height: 900px}
+
+/* Set gray background color and 100% height */
+.sidenav {
+    padding-top: 20px;
+    background-color: #f1f1f1;
+    height: 100%;
+}
+
+/* Set black background color, white text and some padding */
+footer {
+    background-color: #555;
+    color: white;
+    padding: 15px;
+    height: 100px;
+}
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 992px) {
+    .sidenav {
+        height: 0;
+        padding: 0;
+        visibility: hidden;
+    }
+    .row.content {height:auto;}
+    .mobile {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+#page {
+    font-family: 'Roboto', sans-serif;
+}
+
+.glyphicon.glyphicon-pencil{
+    padding-top: 20px;
+    font-size: 35px;
+}
+
+.h3{
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
+}
+
+.hr{
+    margin-top: 20px;
+    height: 3px;
+    background-color: #666666;
+    margin-bottom: 20px;
+}
+
+#forgot {
+    padding-bottom: 20px;
+}
+.su_label {
+    float: left;
+    padding-left: 5px; 
+}
+
+
+.error_text {
+    color: #a94442; 
+    padding-top: 10px;
+}
+
+.middle {
+    margin: 0 auto;
+    float:none;
+}
+
+.btmpad50 {
+    padding-bottom: 50px;
+}
+
+.btmpad20 {
+    padding-bottom: 20px;
+}
+
+.spacer {
+    height: 20px;
+    width:100%;
+}
+
+.mobile {}
+
+#error_message {
+    padding-top: 15px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
