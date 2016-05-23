@@ -23,6 +23,7 @@ and open the template in the editor.
 
         <!-- Links to required resources -->
         <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/getStarted.css">
         <script src="js/jquery-2.2.2.min.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?callback=initDeviceMap" async defer></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -44,7 +45,7 @@ and open the template in the editor.
                 </div>
                 <div class="col-md-6 text-left mobile">
                     <div class="col-md-12 col-sm-12 text-center btmpad20 mobile">                      
-                        <h3 class="h3">
+                        <h3 id="sign_up" class="h3">
                             <span class="glyphicon glyphicon-pencil btmpad20"></span>Sign Up
                         </h3>
                         <div class="col-lg-11 col-md-12 col-sm-10 col-xs-12 hr middle">
