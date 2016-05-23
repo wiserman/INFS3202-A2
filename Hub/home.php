@@ -16,18 +16,24 @@ and open the template in the editor.
 
         <!-- Links to required resources -->
         <link rel="stylesheet" type="text/css" href="css/main.css">
-        <script src="js/jquery-2.2.2.min.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?callback=initDeviceMap" async defer></script>
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="js/home.js"></script>
         <script src="js/main.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
         
+        <?php include 'total_activity_chart.php' ?>
+        
+        <script>
+            $(document).ready(function() {
+                loadHome();
+                console.log('ready function called');
+            });
+        </script>
     </head>
     <body>
         <?php
             include 'navbar.php';
             include 'sidebar.php';
-        ?>
-        
+        ?>        
         <div class="home" id="home">
             <div class="outline">
                 <div class="total-stats" id="total-stats">
@@ -45,7 +51,9 @@ and open the template in the editor.
                     </p>
                 </div>
                 <div class="total-map-container" id="total-map-container">
-                    <figure class="total-map" id="total-map"></figure>
+                    <figure class="total-map" id="total-map">
+                        <?php include 'total_map.php' ?>
+                    </figure>
                 </div>
             </div>
         </div>

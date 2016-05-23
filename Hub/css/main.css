@@ -32,7 +32,7 @@ body {
 /* Navbar */
 .navbar {
     position: absolute;
-    z-index: 9;
+    z-index: 11;
 }
 
 .navbar ul {
